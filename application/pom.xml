@@ -15,14 +15,12 @@
 
     <groupId>md</groupId>
     <artifactId>spring-demo-application</artifactId>
-    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>Spring Demo - Application</name>
+    <description>Demo project for Spring Boot - Application</description>
 
     <dependencies>
-        <dependency>
-            <groupId>md</groupId>
-            <artifactId>spring-demo-library</artifactId>
-            <version>2.6.0</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -32,5 +30,20 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>md</groupId>
+            <artifactId>spring-demo-library</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
