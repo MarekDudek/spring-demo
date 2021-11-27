@@ -1,33 +1,27 @@
 package md.springdemo.application;
 
 import lombok.extern.slf4j.Slf4j;
-import md.springdemo.library.Checker;
-import md.springdemo.library.CheckerProperties;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
+import md.springdemo.application.module.One;
+import md.springdemo.application.module.Three;
+import md.springdemo.application.module.Two;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@SpringBootApplication
-@Import({
-        Checker.class,
-        CheckerProperties.class,
-})
-@EnableConfigurationProperties
+import static org.springframework.boot.WebApplicationType.NONE;
+
+@SpringBootConfiguration
+@EnableAutoConfiguration
 @Slf4j
-public class SpringDemoApplication
+class SpringDemoApplication
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(SpringDemoApplication.class, args);
-    }
-
-    @Bean
-    ApplicationRunner runner(Checker checker)
-    {
-        return args ->
-                log.info("Checks ? {}", checker.check());
+        log.info("Main app");
+        new SpringApplicationBuilder().
+                parent(One.class).web(NONE).
+                child(Two.class).web(NONE).
+                sibling(Three.class).web(NONE).
+                run(args);
     }
 }
