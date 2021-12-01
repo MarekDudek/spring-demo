@@ -7,21 +7,24 @@ import md.springdemo.application.module.Two;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import reactor.core.scheduler.Schedulers;
 
 import static org.springframework.boot.WebApplicationType.NONE;
+import static org.springframework.boot.WebApplicationType.SERVLET;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @Slf4j
-class SpringDemoApplication
+public class SpringDemoApplication
 {
     public static void main(String[] args)
     {
         log.info("Main app");
+        Schedulers.enableMetrics();
         new SpringApplicationBuilder().
                 parent(One.class).web(NONE).
                 child(Two.class).web(NONE).
-                sibling(Three.class).web(NONE).
+                sibling(Three.class).web(SERVLET).
                 run(args);
     }
 }
